@@ -93,6 +93,29 @@ Groups products into value tiers relative to the store's full price range, captu
 
 ## 📂 Files in This Repo
 
+---
+
+## 💡 Key Learnings
+
+- IQR outlier removal fails silently on skewed data, always visualise distributions first
+- Missing data is often a feature, not just noise, context decides which
+- Feature engineering adds more model value than hyperparameter tuning in most real datasets
+- Clean, commented notebooks are as important as the code itself
+
+---
+
+## 👩🏾‍💻 About Me
+
+**Adeniyi Rukayat** — Data & Operations Analyst | Abuja, Nigeria
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/adebimpeadeniyi)
+[![Fiverr](https://img.shields.io/badge/Fiverr-1DBF73?style=flat&logo=fiverr&logoColor=white)](https://fiverr.com/ruqqaayyah)
+[![Email](https://img.shields.io/badge/Email-EA4335?style=flat&logo=gmail&logoColor=white)](mailto:rukayyahadeniyi@gmail.com)
+[![Portfolio](https://img.shields.io/badge/GitHub-databyrukayat-181717?style=flat&logo=github&logoColor=white)](https://github.com/databyrukayat)
+
+---
+
+*DecodeLabs Data Science Internship Program · 2026*
 
 
 
