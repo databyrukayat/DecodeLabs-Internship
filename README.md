@@ -1,24 +1,21 @@
 # 🛒 E-Commerce Outlier Mitigation & Feature Engineering
 ### DecodeLabs Data Science Internship | Python · Pandas · NumPy · Scikit-learn
 
-> **The problem:** Raw e-commerce transaction data is messy —  
-> extreme outliers break models, missing values introduce bias,  
-> and weak features limit predictive power.  
-> **The solution:** A robust preprocessing and feature engineering pipeline  
-> that makes the data model-ready.
+> **The problem:** Raw e-commerce transaction data is messy;
+
+- extreme outliers break models, missing values introduce bias,
+  
+- and weak features limit predictive power.
+  
+> **The solution:** A robust preprocessing and feature engineering pipeline that makes the data model-ready.
 
 ---
 
 ## 📌 Project Overview
 
-This project tackles one of the most common real-world data science challenges:
-preparing highly skewed, incomplete transaction data for machine learning —
-without destroying signal in the process.
+This project tackles one of the most common real-world data science challenges: preparing highly skewed, incomplete transaction data for machine learning without destroying signal in the process.
 
-Working with a real e-commerce dataset during my DecodeLabs internship,
-I designed a preprocessing pipeline that safely handles extreme outliers,
-fills missing data intelligently, and engineers three high-signal behavioural
-features to improve downstream model performance.
+Working with a real e-commerce dataset during my DecodeLabs internship, I designed a preprocessing pipeline that safely handles extreme outliers, fills missing data intelligently, and engineers three high-signal behavioural features to improve downstream model performance.
 
 ---
 
@@ -46,9 +43,8 @@ features to improve downstream model performance.
 ## 🔧 Pipeline Breakdown
 
 ### 1️⃣ Outlier Mitigation — Winsorization
-Standard IQR-based clipping fails on heavily skewed distributions —
-it either removes too much or too little. Instead, I applied
-**95th Percentile Winsorization** using `numpy.clip()`:
+Standard IQR-based clipping fails on heavily skewed distributions, it either removes too much or too little. 
+Instead, I applied **95th Percentile Winsorization** using `numpy.clip()`:
 
 ```python
  lower_bound = data[col].quantile(0.01)
@@ -57,14 +53,12 @@ it either removes too much or too little. Instead, I applied
 data[col] = np.clip(data[col], lower_bound, upper_bound)
 ```
 
-This caps extreme values without deleting rows,
-preserving sample size while neutralising outlier distortion.
+This caps extreme values without deleting rows, preserving sample size while neutralising outlier distortion.
 
 ---
 
 ### 2️⃣ Intelligent Imputation — Missing CouponCode
-Rather than dropping rows or filling with a generic placeholder,
-I treated missing coupon codes as a **behavioural signal**:
+Rather than dropping rows or filling with a generic placeholder, I treated missing coupon codes as a **behavioural signal**:
 
 ```python
 data['CouponCode'] = data['CouponCode'].fillna('NO_CODE')
@@ -81,23 +75,19 @@ Preserving that distinction gives the model more to work with.
 ```python
 data['Average_Item_Cost'] = data['TotalPrice'] / data['ItemsInCart']
 ```
-Distinguishes bulk buyers from luxury buyers —
-a stronger signal than raw order value alone.
+Distinguishes bulk buyers from luxury buyers, a stronger signal than raw order value alone.
 
 #### 🔹 `Friction_Flag`
 ```python
 data['Order_Failed'] = data['OrderStatus'].isin(['Cancelled', 'Returned', 'Pending']).astype(int)
 ```
-Customers who experienced past order issues are significantly
-less likely to return. This binary flag makes that pattern
-explicit and learnable for the model.
+Customers who experienced past order issues are significantly less likely to return. This binary flag makes that pattern explicit and learnable for the model.
 
 #### 🔹 `Product_Tier`
 ```python
 data['Product_Price_Tier'] = pd.qcut(data['UnitPrice'], q=3, labels=['Budget', 'Mid-Range', 'Luxury'])
 ```
-Groups products into value tiers relative to the store's full price range —
-capturing price sensitivity as a categorical signal.
+Groups products into value tiers relative to the store's full price range, capturing price sensitivity as a categorical signal.
 
 ---
 
